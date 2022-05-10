@@ -1,5 +1,5 @@
 from typing import Iterable
-
+import random
 UNCULTURED_WORDS = ('kotleta', 'pirog')
 
 
@@ -12,7 +12,7 @@ def greet_user(name: str) -> str:
     :return: приветствие
     """
 
-    # пиши код здесь
+    greeting = "Hello, " + name
     return greeting
 
 
@@ -28,7 +28,8 @@ def get_amount() -> float:
     :return: случайную сумму на счете
     """
 
-    # пиши код здесь
+    amount = random.uniform(100, 100000)
+    amount = float('{:.2f}'.format(amount))
     return amount
 
 
@@ -42,7 +43,13 @@ def is_phone_correct(phone_number: str) -> bool:
                                           False - если номер некорректный
     """
 
-    # пиши код здесь
+    if phone_number[0:2] != "+7":
+        return False
+    if len(phone_number[2:]) != 10:
+        return False
+    if not(phone_number[2:].isdigit()):
+            return False
+    result = True
     return result
 
 
@@ -58,7 +65,13 @@ def is_amount_correct(current_amount: float, transfer_amount: str) -> bool:
                                           False - если денег недостаточно
     """
 
-    # пиши код здесь
+    for i in range(0, len(transfer_amount)):
+        if transfer_amount[i] != '.' and (0 > int(transfer_amount[i]) or int(transfer_amount[i]) > 9):
+            return False
+    if current_amount >= float(transfer_amount):
+        result = True
+    else:
+        result = False
     return result
 
 
@@ -77,8 +90,18 @@ def moderate_text(text: str, uncultured_words: Iterable[str]) -> str:
     :return: текст, соответсвующий правилам
     """
 
-    # пиши код здесь
-    return result
+    text = text.strip()
+    text = ' '.join(text.split())
+    text = text[0].upper() + text[1:].lower()
+    text = text.replace('"', '')
+    text = text.replace("'", '')
+    n = text.count(UNCULTURED_WORDS[0])
+    text = text.replace(UNCULTURED_WORDS[0], "#" * len(UNCULTURED_WORDS[0]), n)
+    n = text.count(UNCULTURED_WORDS[1])
+    text = text.replace(UNCULTURED_WORDS[1], "#" * len(UNCULTURED_WORDS[1]), n)
+    text = ' '.join(text.split())
+    result = text
+    return text
 
 
 def create_request_for_loan(user_info: str) -> str:
@@ -100,5 +123,9 @@ def create_request_for_loan(user_info: str) -> str:
     :return: текст кредитной заявки
     """
 
-    # пиши код здесь
+    user_info = user_info.split(',')
+    result = "Фамилия: " + user_info[0] + "\n" + "Имя: " + user_info[1] + "\n" + "Отчество: " + user_info[
+        2] + "\n" + "Дата рождения: " + user_info[3] + "\n" + "Запрошенная сумма: " + user_info[4]
     return result
+
+print(is_phone_correct('+780055535ab'))
