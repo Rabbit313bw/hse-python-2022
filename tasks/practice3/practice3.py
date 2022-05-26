@@ -52,9 +52,9 @@ def exp_list(numbers: List[int], exp: int) -> List[int]:
     :param exp: в какую степень возвести числа в списке
     :return: список натуральных чисел
     """
+    #
     result = [i ** exp for i in numbers]
     return result
-
 
 def get_cashback(operations: List[Dict[str, Any]], special_category: List[str]) -> float:
     """
