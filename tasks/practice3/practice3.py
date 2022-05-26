@@ -117,7 +117,7 @@ def csv_reader(header: str) -> int:
     :return: количество уникальных элементов в столбце
     """
     res = 0
-    with open('D:/Hse_python/hse-python-2022/tasks/practice3/tasks.csv') as f:
+    with open(get_path_to_file()) as f:
         reader = csv.DictReader(f)
         words = list()
         for raw in reader:
